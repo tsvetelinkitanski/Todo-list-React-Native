@@ -6,7 +6,7 @@ import {
   StyleSheet,
   Text,
   TextInput,
-  TouchableOpacity,
+  Pressable,
   View,
 } from "react-native";
 import Task from "./components/Task";
@@ -33,9 +33,14 @@ export default function App() {
         <Text style={styles.title}>Today's tasks</Text>
         <View style={styles.items}>
           {taskItems.map((item, index) => (
-            <TouchableOpacity key={index} onPress={() => completeTasks(index)}>
+            <Pressable
+              android_ripple={{ color: "#E8EAED" }}
+              style={({ pressed }) => pressed && styles.press}
+              key={index}
+              onPress={() => completeTasks(index)}
+            >
               <Task text={item} />
-            </TouchableOpacity>
+            </Pressable>
           ))}
         </View>
       </View>
@@ -51,11 +56,15 @@ export default function App() {
           onChangeText={(text) => setTask(text)}
         />
 
-        <TouchableOpacity onPress={() => handleAddTask()}>
+        <Pressable
+          android_ripple={{ color: "#E8EAED" }}
+          style={({ pressed }) => pressed && styles.press}
+          onPress={() => handleAddTask()}
+        >
           <View style={styles.addWraper}>
             <Text style={styles.addText}>+</Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
       </KeyboardAvoidingView>
     </View>
   );
@@ -94,6 +103,9 @@ const styles = StyleSheet.create({
     borderRadius: 60,
     borderColor: "#C0C0C0",
     borderWidth: 1,
+  },
+  press: {
+    opacity: 0.5,
   },
   addWraper: {
     width: 60,
